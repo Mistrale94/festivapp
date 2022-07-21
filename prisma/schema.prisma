@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id            Int             @id   @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  username      String          @unique
+  email         String          @unique
+  image         String?
+  password      String
+  description   String?
+  birth         DateTime
+  token         String?
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+}
+
+model Post {
+  id            String             @id   @default(cuid())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  title         String
+  content       String?
+  image         String
+  user_id       String?
+  user          User? @relation(fields: [user_id], references: [username])
+  comments      Comment[]
+  likes         Like[]
+}
+
+model Comment {
+  id            Int             @id   @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  content       String
+  user_id       String
+  user          User? @relation(fields: [user_id], references: [username])
+  post_id       String
+  post          Post @relation(fields: [post_id], references: [id])
+}
+
+model Like {
+  id            Int             @id   @default(autoincrement())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  like          Boolean
+  user_id       Int
+  user          User @relation(fields: [user_id], references: [id])
+  post_id       String
+  post          Post @relation(fields: [post_id], references: [id])
+}
