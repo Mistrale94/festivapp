@@ -12,6 +12,7 @@
                 <th>Image</th>
                 <th>Description</th>
                 <th>User</th>
+                <th>Comment</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +23,18 @@
                 <td>{{ post.image }}</td>
                 <td>{{ post.description }}</td>
                 <td>{{ post.user.username }}</td>
+                {% for comment in post.comment %}
+                    <td>{{ comment.comment }}</td>
+                {% endfor %}
+
+                <td>
+                    <form method="POST" action="{{ path('post-comment') }}">
+                        <input type="text" name="id" value="{{ post.id }}">
+                        <textarea aria-label="Add comment..." placeholder="Add comment..." autocomplete="off" autocorrect="off" name="comment"></textarea>
+                        <button type="submit">Publish</button>
+                    </form>
+                <td>
+            
                 <td>
                     <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
                     <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>

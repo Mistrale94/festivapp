@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 #[Route('/comment')]
 class CommentController extends AbstractController
@@ -21,10 +23,31 @@ class CommentController extends AbstractController
         ]);
     }
 
+    #[Route('/post-comment', name: 'post-comment', methods: ['POST'])]
+    public function postComment(Request $request, PostRepository $postRepository,  PersistenceManagerRegistry $doctrine)
+    {
+        $comment = new Comment();
+        $data = $request->request->all();
+        $comment->setUser($this->getUser());
+        $comment->setComment($data['comment']);
+        $post = $postRepository->find(intval($data['id']));
+        $post->addComment($comment);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($comment);
+        $entityManager->persist($post);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_post_index');
+    }
+
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommentRepository $commentRepository): Response
     {
+        $post = $this->getPost();
+        $user = $this->getUser();
         $comment = new Comment();
+        $comment->setPost($post);
+        $comment->setUser($user);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 

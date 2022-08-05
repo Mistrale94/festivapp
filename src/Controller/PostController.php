@@ -5,19 +5,36 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Entity\Comment;
+use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/post')]
+#[Route('/')]
 class PostController extends AbstractController
 {
-    #[Route('/', name: 'app_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository): Response
+    #[Route('/', name: 'app_post_index', methods: ['GET', 'POST'])]
+    public function index(PostRepository $postRepository, CommentRepository $commentRepository, Request $request): Response
     {
-        return $this->render('post/index.html.twig', [
+        $user = $this->getUser();
+        $comment = new Comment();
+        $comment->setUser($user);
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentRepository->add($comment, true);
+
+            return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('post/index.html.twig', [
             'posts' => $postRepository->findAll(),
+            'comment' => $comment,
+            'form' => $form,
         ]);
     }
 

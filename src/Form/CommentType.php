@@ -3,9 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Comment;
+use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CommentType extends AbstractType
 {
@@ -13,8 +17,11 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment')
-            ->add('post')
-            ->add('user')
+            ->add('post', EntityType::class, [
+                'class' => Post::class,
+                'multiple' => false,
+                'choice_label' => 'id',
+            ])
         ;
     }
 

@@ -19,6 +19,12 @@
                 <th>Description</th>
                 <td>{{ post.description }}</td>
             </tr>
+            {% for comment in post.comment %}
+            <tr>
+                <th>Comment</th>
+                <td>{{ comment.comment }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 
