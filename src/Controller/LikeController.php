@@ -5,19 +5,45 @@ namespace App\Controller;
 use App\Entity\Like;
 use App\Form\LikeType;
 use App\Repository\LikeRepository;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 #[Route('/like')]
 class LikeController extends AbstractController
 {
+
     #[Route('/', name: 'app_like_index', methods: ['GET'])]
     public function index(LikeRepository $likeRepository): Response
     {
         return $this->render('like/index.html.twig', [
             'likes' => $likeRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/like', name: 'like', methods: ['POST'])]
+    public function like(Request $request, PostRepository $postRepository, PersistenceManagerRegistry $doctrine): Response
+    {
+
+        $like = new Like();
+        $data = $request->request->all();
+        $user = $this->getUser();
+        $like->setUser($user);
+        $like->setLove(true);
+        $post = $postRepository->find(intval($data['id']));
+        $post->addLove($like);
+        $post->setLikes($post->getLikes() + 1);
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($user);
+        $entityManager->persist($like);
+        $entityManager->persist($post);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_post_index', [
+            'like' => $like,
         ]);
     }
 

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+
+    <section class="profileEdit">
+        <h1>Modifier mon profile</h1>
+        {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+    </section>
+{% endblock %}

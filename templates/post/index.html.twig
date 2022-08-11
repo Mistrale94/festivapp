@@ -3,50 +3,70 @@
 {% block title %}Post index{% endblock %}
 
 {% block body %}
-    <h1>Post index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Image</th>
-                <th>Description</th>
-                <th>User</th>
-                <th>Comment</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <section class="feed">
         {% for post in posts %}
-            <tr>
-                <td>{{ post.id }}</td>
-                <td>{{ post.image }}</td>
-                <td>{{ post.description }}</td>
-                <td>{{ post.user.username }}</td>
-                {% for comment in post.comment %}
-                    <td>{{ comment.comment }}</td>
-                {% endfor %}
-
-                <td>
+            <div class="postContainer">
+                <div class="postHeader">
+                    <a href="{{ path('app_user_show', {'id': post.user.id}) }}">
+                        {% if post.user.avatar == null %}
+                            <img src="/image/uploads/users/avatar.webp" alt="" />
+                        {% else %}
+                            <img src="/image/uploads/users/{{post.user.avatar}}" alt="" />
+                        {% endif %}
+                        <p>{{ post.user.username }}</p>
+                    </a>
+                    {% if app.user %}
+                        {% if app.user.id == post.user.id %}
+                        <div class="editDelete">
+                            <a href="{{ path('app_post_edit', {'id': post.id}) }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </a>
+                            {{ include('post/_delete_form.html.twig') }}
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <img src="image/uploads/posts/{{post.image}}">
+                <p class="bio">{{ post.description }}</p>
+                <div class="postIconContainer">
+                    {% if app.user %}
+                        <form method="POST" action="{{ path('like') }}">
+                            <input type="text" name="id" value="{{ post.id }}" style="display:none;">
+                            <button type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                            </button>
+                        </form>
+                    {% endif %}
+                    {% if post.likes == null %}
+                        <p>0 personnes ont aimé cette publication</p>
+                    {% else %}
+                        <p>{{ post.likes }} personnes ont aimé cette publication</p>
+                    {% endif %}
+                </div>
+                <div class="postCommentContainer">
+                    {% for comment in post.comment %}
+                        <div class="postComment">
+                            <a href="{{ path('app_user_show', {'id': comment.user.id}) }}">
+                                <span>{{ comment.user.username }}</span>
+                            </a>
+                            <p>{{ comment.comment }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if app.user %}
                     <form method="POST" action="{{ path('post-comment') }}">
-                        <input type="text" name="id" value="{{ post.id }}">
-                        <textarea aria-label="Add comment..." placeholder="Add comment..." autocomplete="off" autocorrect="off" name="comment"></textarea>
-                        <button type="submit">Publish</button>
+                        <input type="text" name="id" value="{{ post.id }}" style="display:none;">
+                        <input aria-label="Ajouter un commentaire ..." placeholder="Ajouter un commentaire ..." autocomplete="off" autocorrect="off" name="comment"></input>
+                        <button type="submit">Publier</button>
                     </form>
-                <td>
-            
-                <td>
-                    <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+                {% endif %}
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_post_new') }}">Create new</a>
+    </section>
+    
 {% endblock %}

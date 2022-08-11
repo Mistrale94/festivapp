@@ -24,7 +24,7 @@ class CommentController extends AbstractController
     }
 
     #[Route('/post-comment', name: 'post-comment', methods: ['POST'])]
-    public function postComment(Request $request, PostRepository $postRepository,  PersistenceManagerRegistry $doctrine)
+    public function postComment(Request $request, PostRepository $postRepository, PersistenceManagerRegistry $doctrine)
     {
         $comment = new Comment();
         $data = $request->request->all();

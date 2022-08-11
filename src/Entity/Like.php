@@ -14,32 +14,26 @@ class Like
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?bool $love = null;
-
-    #[ORM\ManyToOne(inversedBy: 'love')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'love')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
+
+    #[ORM\Column]
+    private ?bool $love = null;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+        $this->post = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function isLove(): ?bool
-    {
-        return $this->love;
-    }
-
-    public function setLove(bool $love): self
-    {
-        $this->love = $love;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -62,6 +56,18 @@ class Like
     public function setPost(?Post $post): self
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function isLove(): ?bool
+    {
+        return $this->love;
+    }
+
+    public function setLove(bool $love): self
+    {
+        $this->love = $love;
 
         return $this;
     }

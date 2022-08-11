@@ -1,0 +1,344 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Ubuntu', sans-serif; }
+
+header {
+  height: 80px; }
+  header nav {
+    width: 100%;
+    height: 100%;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #191A19; }
+    header nav ul {
+      display: flex;
+      align-items: center; }
+      header nav ul li {
+        list-style: none; }
+        header nav ul li a {
+          color: #FFFFFF;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          margin-right: 20px; }
+          header nav ul li a svg {
+            width: 30px;
+            height: 30px;
+            cursor: pointer; }
+          header nav ul li a svg:hover {
+            color: #7d15cc;
+            transform: scale(1.2);
+            transition: all 300ms ease-out; }
+          header nav ul li a img {
+            height: 50px;
+            width: 50px;
+            border-radius: 100%;
+            object-fit: cover;
+            padding: 3px; }
+        header nav ul li a:hover {
+          color: #7d15cc;
+          transition: 0.3s; }
+
+footer {
+  background-color: #191A19;
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  footer a {
+    text-decoration: none;
+    color: #FFFFFF; }
+  footer a:hover {
+    color: #7d15cc;
+    transition: 0.3s; }
+
+body {
+  background-color: #333333;
+  color: #FFFFFF; }
+  body section.feed, body section.postShow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px; }
+    body section.feed div.postContainer, body section.postShow div.postContainer {
+      width: 85%;
+      margin-bottom: 50px;
+      background-color: #191A19;
+      border-radius: 10px; }
+      body section.feed div.postContainer div.postHeader, body section.postShow div.postContainer div.postHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px; }
+        body section.feed div.postContainer div.postHeader a, body section.postShow div.postContainer div.postHeader a {
+          display: flex;
+          align-items: center;
+          text-decoration: none; }
+          body section.feed div.postContainer div.postHeader a img, body section.postShow div.postContainer div.postHeader a img {
+            height: 52px;
+            width: 52px;
+            border-radius: 100%;
+            object-fit: cover;
+            border: 1px solid #FFFFFF;
+            padding: 3px;
+            margin-right: 15px; }
+          body section.feed div.postContainer div.postHeader a p, body section.postShow div.postContainer div.postHeader a p {
+            font-weight: bold;
+            font-size: 1.025rem;
+            color: #FFFFFF; }
+          body section.feed div.postContainer div.postHeader a p:hover, body section.postShow div.postContainer div.postHeader a p:hover {
+            color: #7d15cc;
+            transition: 0.3s; }
+        body section.feed div.postContainer div.postHeader div.editDelete, body section.postShow div.postContainer div.postHeader div.editDelete {
+          display: flex; }
+          body section.feed div.postContainer div.postHeader div.editDelete a, body section.postShow div.postContainer div.postHeader div.editDelete a {
+            margin-right: 10px; }
+            body section.feed div.postContainer div.postHeader div.editDelete a svg, body section.postShow div.postContainer div.postHeader div.editDelete a svg {
+              width: 25px;
+              color: #FFFFFF; }
+            body section.feed div.postContainer div.postHeader div.editDelete a svg:hover, body section.postShow div.postContainer div.postHeader div.editDelete a svg:hover {
+              color: #7d15cc;
+              transform: scale(1.2);
+              transition: all 300ms ease-out; }
+          body section.feed div.postContainer div.postHeader div.editDelete form, body section.postShow div.postContainer div.postHeader div.editDelete form {
+            padding: 0;
+            height: 25px; }
+            body section.feed div.postContainer div.postHeader div.editDelete form button svg, body section.postShow div.postContainer div.postHeader div.editDelete form button svg {
+              color: #FFFFFF;
+              width: 25px; }
+            body section.feed div.postContainer div.postHeader div.editDelete form button svg:hover, body section.postShow div.postContainer div.postHeader div.editDelete form button svg:hover {
+              color: #7d15cc;
+              transform: scale(1.2);
+              transition: all 300ms ease-out; }
+      body section.feed div.postContainer img, body section.postShow div.postContainer img {
+        object-fit: cover;
+        width: 100%; }
+      body section.feed div.postContainer p.bio, body section.postShow div.postContainer p.bio {
+        margin: 10px 20px;
+        font-size: 1.2rem; }
+      body section.feed div.postContainer div.postIconContainer, body section.postShow div.postContainer div.postIconContainer {
+        display: flex;
+        justify-content: flex-start;
+        padding: 15px;
+        align-items: center; }
+        body section.feed div.postContainer div.postIconContainer form, body section.postShow div.postContainer div.postIconContainer form {
+          margin-right: 10px;
+          background: none; }
+          body section.feed div.postContainer div.postIconContainer form button, body section.postShow div.postContainer div.postIconContainer form button {
+            background: none;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer; }
+            body section.feed div.postContainer div.postIconContainer form button svg, body section.postShow div.postContainer div.postIconContainer form button svg {
+              height: 30px; }
+            body section.feed div.postContainer div.postIconContainer form button svg:hover, body section.postShow div.postContainer div.postIconContainer form button svg:hover {
+              color: #7d15cc;
+              transform: scale(1.2);
+              transition: all 300ms ease-out; }
+      body section.feed div.postContainer div.postCommentContainer, body section.postShow div.postContainer div.postCommentContainer {
+        padding: 0 20px; }
+        body section.feed div.postContainer div.postCommentContainer div.postComment, body section.postShow div.postContainer div.postCommentContainer div.postComment {
+          display: flex;
+          margin-bottom: 10px; }
+          body section.feed div.postContainer div.postCommentContainer div.postComment a, body section.postShow div.postContainer div.postCommentContainer div.postComment a {
+            color: #FFFFFF;
+            text-decoration: none; }
+            body section.feed div.postContainer div.postCommentContainer div.postComment a span, body section.postShow div.postContainer div.postCommentContainer div.postComment a span {
+              margin-right: 15px;
+              font-weight: bold; }
+          body section.feed div.postContainer div.postCommentContainer div.postComment a:hover, body section.postShow div.postContainer div.postCommentContainer div.postComment a:hover {
+            color: #7d15cc;
+            transition: 0.3s; }
+      body section.feed div.postContainer form:last-child, body section.postShow div.postContainer form:last-child {
+        display: flex;
+        align-items: center;
+        padding: 15px; }
+        body section.feed div.postContainer form:last-child input, body section.postShow div.postContainer form:last-child input {
+          border: none;
+          outline: 0;
+          width: 100%;
+          height: 40px;
+          border-radius: 30px;
+          color: #FFFFFF;
+          padding: 0 20px;
+          background-color: #333333;
+          margin-right: 15px; }
+        body section.feed div.postContainer form:last-child button, body section.postShow div.postContainer form:last-child button {
+          border: none;
+          font-weight: bold;
+          font-size: 1.05rem;
+          background: none;
+          cursor: pointer;
+          color: #FFFFFF; }
+        body section.feed div.postContainer form:last-child button:hover, body section.postShow div.postContainer form:last-child button:hover {
+          color: #7d15cc;
+          transition: 0.3s; }
+    body section.feed a.btn-show, body section.postShow a.btn-show {
+      text-decoration: none;
+      color: #FFFFFF;
+      background-color: #191A19;
+      height: 35px;
+      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20px;
+      margin-bottom: 50px; }
+    body section.feed a.btn-show:hover, body section.postShow a.btn-show:hover {
+      color: #7d15cc;
+      transition: 0.3s; }
+  body section.profile {
+    margin-top: 50px; }
+    body section.profile div.profileHeader {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 50px; }
+      body section.profile div.profileHeader img {
+        height: 200px;
+        width: 200px;
+        border: 1px solid #FFFFFF;
+        border-radius: 100%;
+        object-fit: cover;
+        padding: 3px;
+        margin-bottom: 20px; }
+      body section.profile div.profileHeader h1 {
+        font-size: 2rem;
+        margin-bottom: 15px; }
+      body section.profile div.profileHeader p {
+        margin-bottom: 15px;
+        width: 400px;
+        text-align: center; }
+      body section.profile div.profileHeader a {
+        text-decoration: none;
+        color: #FFFFFF;
+        background-color: #191A19;
+        height: 35px;
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px; }
+      body section.profile div.profileHeader a:hover {
+        color: #7d15cc;
+        transition: 0.3s; }
+    body section.profile div.profilePost {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 100%; }
+      body section.profile div.profilePost a img {
+        width: 160px;
+        height: 160px;
+        margin-bottom: 2px;
+        object-fit: cover; }
+  body section.profileEdit, body section.post, body section.login, body section.postEdit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px 0; }
+    body section.profileEdit h1, body section.post h1, body section.login h1, body section.postEdit h1 {
+      margin-bottom: 30px;
+      font-size: 2rem; }
+    body section.profileEdit form, body section.post form, body section.login form, body section.postEdit form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%; }
+      body section.profileEdit form label, body section.post form label, body section.login form label, body section.postEdit form label {
+        margin-bottom: 10px;
+        font-size: 1.2rem; }
+      body section.profileEdit form input, body section.post form input, body section.login form input, body section.postEdit form input {
+        margin-bottom: 20px;
+        height: 35px;
+        width: 60%;
+        padding: 0 10px;
+        border: none;
+        outline: none;
+        color: #FFFFFF;
+        border-radius: 20px;
+        background-color: #191A19; }
+      body section.profileEdit form div, body section.post form div, body section.login form div, body section.postEdit form div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%; }
+        body section.profileEdit form div input, body section.post form div input, body section.login form div input, body section.postEdit form div input {
+          width: 100%; }
+        body section.profileEdit form div div.vich-image div, body section.post form div div.vich-image div, body section.login form div div.vich-image div, body section.postEdit form div div.vich-image div {
+          display: none; }
+        body section.profileEdit form div div.vich-image input, body section.post form div div.vich-image input, body section.login form div div.vich-image input, body section.postEdit form div div.vich-image input {
+          background: none;
+          width: auto; }
+        body section.profileEdit form div div.vich-image a img, body section.post form div div.vich-image a img, body section.login form div div.vich-image a img, body section.postEdit form div div.vich-image a img {
+          border: 1px solid #FFFFFF;
+          border-radius: 100%;
+          object-fit: cover;
+          padding: 3px;
+          margin-bottom: 20px; }
+        body section.profileEdit form div div.vich-image a:last-child, body section.post form div div.vich-image a:last-child, body section.login form div div.vich-image a:last-child, body section.postEdit form div div.vich-image a:last-child {
+          display: none; }
+      body section.profileEdit form button, body section.post form button, body section.login form button, body section.postEdit form button {
+        background: none;
+        color: #FFFFFF;
+        border: none;
+        font-weight: bold;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-top: 15px;
+        height: 50px;
+        width: 150px;
+        background-color: #191A19;
+        border-radius: 30px; }
+      body section.profileEdit form button:hover, body section.post form button:hover, body section.login form button:hover, body section.postEdit form button:hover {
+        color: #7d15cc;
+        transition: 0.3s; }
+  body section.postEdit form div div.vich-image a img {
+    border-radius: 0;
+    border: none; }
+  body section.error {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    body section.error h1 {
+      font-size: 3rem; }
+    body section.error p {
+      font-size: 2rem; }
+  @media (min-width: 768px) {
+    body section.profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center; }
+      body section.profile div.profilePost {
+        justify-content: space-evenly;
+        width: 70%; }
+    body section.feed div.postContainer, body section.postShow div.postContainer {
+      width: 85%; } }
+  @media (min-width: 992px) {
+    body section.feed div.postContainer, body section.postShow div.postContainer {
+      width: 75%; }
+    body section.profileEdit form div input, body section.post form div input, body section.login form div input, body section.postEdit form div input {
+      width: 70%; } }
+  @media (min-width: 1200px) {
+    body section.profile div.profilePost {
+      width: 60%; }
+    body section.feed div.postContainer, body section.postShow div.postContainer {
+      width: 65%; } }
+  @media (min-width: 1400px) {
+    body section.feed div.postContainer, body section.postShow div.postContainer {
+      width: 55%; }
+    body section.profile div.profilePost {
+      width: 50%; }
+    body section.profileEdit form div input, body section.post form div input, body section.login form div input, body section.postEdit form div input {
+      width: 50%; } }
+
+/*# sourceMappingURL=style.css.map */

@@ -37,10 +37,14 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Like::class, orphanRemoval: true)]
     private Collection $love;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $likes = null;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
         $this->love = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
 
@@ -151,6 +155,7 @@ class Post
 
         return $this;
     }
+    
 
     public function removeLove(Like $love): self
     {
@@ -164,9 +169,50 @@ class Post
         return $this;
     }
 
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(?int $likes): self
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addLike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeLike($this);
+        }
+
+        return $this;
+    }
+
     public function __toString()
     {
+        return $this->id;
         return $this->comment;
+        return $this->likers;
     }
 
 }

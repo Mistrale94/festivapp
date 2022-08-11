@@ -280,6 +280,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->id;
+        return $this->likes;
     }
 
     /**
@@ -306,5 +307,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->id = $data['id'];
         $this->email = $data['email'];
         $this->password = $data['password'];
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Post $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Post $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+        }
+
+        return $this;
     }
 }
