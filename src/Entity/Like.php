@@ -25,12 +25,6 @@ class Like
     #[ORM\Column]
     private ?bool $love = null;
 
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-        $this->post = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;

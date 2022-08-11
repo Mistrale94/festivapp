@@ -13,8 +13,10 @@
             {% endif %}
             <h1>{{ user.username }}</h1>
             <p>{{ user.description }}</p>
-            {% if user.id == app.user.id %}
-                <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">Modifier mon profile</a>
+            {% if app.user %}
+                {% if app.user.id == user.id %}
+                    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">Modifier mon profile</a>
+                {% endif %}
             {% endif %}
         </div>
         <div class="profilePost">
