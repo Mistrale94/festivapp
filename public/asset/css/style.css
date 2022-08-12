@@ -43,6 +43,8 @@ header {
             border-radius: 100%;
             object-fit: cover;
             padding: 3px; }
+          header nav ul li a p {
+            margin-right: 5px; }
         header nav ul li a:hover {
           color: #7d15cc;
           transition: 0.3s; }
@@ -153,16 +155,26 @@ body {
         padding: 0 20px; }
         body section.feed div.postContainer div.postCommentContainer div.postComment, body section.postShow div.postContainer div.postCommentContainer div.postComment {
           display: flex;
+          align-items: center;
+          justify-content: space-between;
           margin-bottom: 10px; }
-          body section.feed div.postContainer div.postCommentContainer div.postComment a, body section.postShow div.postContainer div.postCommentContainer div.postComment a {
-            color: #FFFFFF;
-            text-decoration: none; }
-            body section.feed div.postContainer div.postCommentContainer div.postComment a span, body section.postShow div.postContainer div.postCommentContainer div.postComment a span {
-              margin-right: 15px;
-              font-weight: bold; }
-          body section.feed div.postContainer div.postCommentContainer div.postComment a:hover, body section.postShow div.postContainer div.postCommentContainer div.postComment a:hover {
-            color: #7d15cc;
-            transition: 0.3s; }
+          body section.feed div.postContainer div.postCommentContainer div.postComment div, body section.postShow div.postContainer div.postCommentContainer div.postComment div {
+            display: flex; }
+            body section.feed div.postContainer div.postCommentContainer div.postComment div a, body section.postShow div.postContainer div.postCommentContainer div.postComment div a {
+              color: #FFFFFF;
+              text-decoration: none; }
+              body section.feed div.postContainer div.postCommentContainer div.postComment div a span, body section.postShow div.postContainer div.postCommentContainer div.postComment div a span {
+                margin-right: 15px;
+                font-weight: bold; }
+            body section.feed div.postContainer div.postCommentContainer div.postComment div a:hover, body section.postShow div.postContainer div.postCommentContainer div.postComment div a:hover {
+              color: #7d15cc;
+              transition: 0.3s; }
+          body section.feed div.postContainer div.postCommentContainer div.postComment form, body section.postShow div.postContainer div.postCommentContainer div.postComment form {
+            padding: 0;
+            width: 20px;
+            height: 20px; }
+            body section.feed div.postContainer div.postCommentContainer div.postComment form button svg, body section.postShow div.postContainer div.postCommentContainer div.postComment form button svg {
+              width: 20px; }
       body section.feed div.postContainer form:last-child, body section.postShow div.postContainer form:last-child {
         display: flex;
         align-items: center;
@@ -246,23 +258,23 @@ body {
         height: 160px;
         margin-bottom: 2px;
         object-fit: cover; }
-  body section.profileEdit, body section.post, body section.login, body section.postEdit, body section.reset {
+  body section.profileEdit, body section.post, body section.login, body section.postEdit, body section.reset, body section.register {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 50px 0; }
-    body section.profileEdit h1, body section.post h1, body section.login h1, body section.postEdit h1, body section.reset h1 {
+    body section.profileEdit h1, body section.post h1, body section.login h1, body section.postEdit h1, body section.reset h1, body section.register h1 {
       margin-bottom: 30px;
       font-size: 2rem; }
-    body section.profileEdit form, body section.post form, body section.login form, body section.postEdit form, body section.reset form {
+    body section.profileEdit form, body section.post form, body section.login form, body section.postEdit form, body section.reset form, body section.register form {
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 100%; }
-      body section.profileEdit form label, body section.post form label, body section.login form label, body section.postEdit form label, body section.reset form label {
+      body section.profileEdit form label, body section.post form label, body section.login form label, body section.postEdit form label, body section.reset form label, body section.register form label {
         margin-bottom: 10px;
         font-size: 1.2rem; }
-      body section.profileEdit form input, body section.post form input, body section.login form input, body section.postEdit form input, body section.reset form input {
+      body section.profileEdit form input, body section.post form input, body section.login form input, body section.postEdit form input, body section.reset form input, body section.register form input {
         margin-bottom: 20px;
         height: 35px;
         width: 60%;
@@ -272,27 +284,27 @@ body {
         color: #FFFFFF;
         border-radius: 20px;
         background-color: #191A19; }
-      body section.profileEdit form div, body section.post form div, body section.login form div, body section.postEdit form div, body section.reset form div {
+      body section.profileEdit form div, body section.post form div, body section.login form div, body section.postEdit form div, body section.reset form div, body section.register form div {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 80%; }
-        body section.profileEdit form div input, body section.post form div input, body section.login form div input, body section.postEdit form div input, body section.reset form div input {
-          width: 100%; }
-        body section.profileEdit form div div.vich-image div, body section.post form div div.vich-image div, body section.login form div div.vich-image div, body section.postEdit form div div.vich-image div, body section.reset form div div.vich-image div {
+        body section.profileEdit form div input, body section.post form div input, body section.login form div input, body section.postEdit form div input, body section.reset form div input, body section.register form div input {
+          width: 60%; }
+        body section.profileEdit form div div.vich-image div, body section.post form div div.vich-image div, body section.login form div div.vich-image div, body section.postEdit form div div.vich-image div, body section.reset form div div.vich-image div, body section.register form div div.vich-image div {
           display: none; }
-        body section.profileEdit form div div.vich-image input, body section.post form div div.vich-image input, body section.login form div div.vich-image input, body section.postEdit form div div.vich-image input, body section.reset form div div.vich-image input {
+        body section.profileEdit form div div.vich-image input, body section.post form div div.vich-image input, body section.login form div div.vich-image input, body section.postEdit form div div.vich-image input, body section.reset form div div.vich-image input, body section.register form div div.vich-image input {
           background: none;
           width: auto; }
-        body section.profileEdit form div div.vich-image a img, body section.post form div div.vich-image a img, body section.login form div div.vich-image a img, body section.postEdit form div div.vich-image a img, body section.reset form div div.vich-image a img {
+        body section.profileEdit form div div.vich-image a img, body section.post form div div.vich-image a img, body section.login form div div.vich-image a img, body section.postEdit form div div.vich-image a img, body section.reset form div div.vich-image a img, body section.register form div div.vich-image a img {
           border: 1px solid #FFFFFF;
           border-radius: 100%;
           object-fit: cover;
           padding: 3px;
           margin-bottom: 20px; }
-        body section.profileEdit form div div.vich-image a:last-child, body section.post form div div.vich-image a:last-child, body section.login form div div.vich-image a:last-child, body section.postEdit form div div.vich-image a:last-child, body section.reset form div div.vich-image a:last-child {
+        body section.profileEdit form div div.vich-image a:last-child, body section.post form div div.vich-image a:last-child, body section.login form div div.vich-image a:last-child, body section.postEdit form div div.vich-image a:last-child, body section.reset form div div.vich-image a:last-child, body section.register form div div.vich-image a:last-child {
           display: none; }
-      body section.profileEdit form button, body section.post form button, body section.login form button, body section.postEdit form button, body section.reset form button {
+      body section.profileEdit form button, body section.post form button, body section.login form button, body section.postEdit form button, body section.reset form button, body section.register form button {
         background: none;
         color: #FFFFFF;
         border: none;
@@ -304,19 +316,30 @@ body {
         width: 150px;
         background-color: #191A19;
         border-radius: 30px; }
-      body section.profileEdit form button:hover, body section.post form button:hover, body section.login form button:hover, body section.postEdit form button:hover, body section.reset form button:hover {
+      body section.profileEdit form button:hover, body section.post form button:hover, body section.login form button:hover, body section.postEdit form button:hover, body section.reset form button:hover, body section.register form button:hover {
         color: #7d15cc;
         transition: 0.3s; }
-      body section.profileEdit form button.btn-primary, body section.post form button.btn-primary, body section.login form button.btn-primary, body section.postEdit form button.btn-primary, body section.reset form button.btn-primary {
+      body section.profileEdit form button.btn-primary, body section.post form button.btn-primary, body section.login form button.btn-primary, body section.postEdit form button.btn-primary, body section.reset form button.btn-primary, body section.register form button.btn-primary {
         width: 300px; }
-  body section.login button {
-    margin-bottom: 20px; }
+  body section.post {
+    height: 70vh;
+    justify-content: center; }
+  body section.login {
+    height: 90vh;
+    justify-content: center; }
+    body section.login button {
+      margin-bottom: 20px; }
+    body section.login a {
+      color: #FFFFFF; }
   body section.reset {
     justify-content: center;
     height: 70vh; }
-  body section.postEdit form div div.vich-image a img {
-    border-radius: 0;
-    border: none; }
+  body section.postEdit form div div.vich-image a {
+    text-align: center; }
+    body section.postEdit form div div.vich-image a img {
+      border-radius: 0;
+      border: none;
+      width: 70%; }
   body section.error {
     height: 80vh;
     display: flex;

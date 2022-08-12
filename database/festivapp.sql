@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 11 août 2022 à 02:37
+-- Généré le : ven. 12 août 2022 à 07:44
 -- Version du serveur : 5.7.36
 -- Version de PHP : 8.0.13
 
@@ -33,22 +33,19 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_9474526C4B89032C` (`post_id`),
   KEY `IDX_9474526CA76ED395` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `comment`
 --
 
-INSERT INTO `comment` (`id`, `comment`, `post_id`, `user_id`) VALUES
-(1, 'test', 1, 1),
-(2, 'test', 1, 1),
-(3, 'test2', 1, 1),
-(4, 'test truc 2', 9, 1),
-(5, 'test css', 9, 1),
-(6, 'yes', 9, 2);
+INSERT INTO `comment` (`id`, `comment`, `post_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(11, 'Ceci est un commentaire', 14, 1, '2022-08-12 05:15:10', '2022-08-12 05:15:10');
 
 -- --------------------------------------------------------
 
@@ -82,31 +79,11 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20220809215654', '2022-08-09 21:57:02', 147),
 ('DoctrineMigrations\\Version20220810151547', '2022-08-10 15:15:53', 363),
 ('DoctrineMigrations\\Version20220810151750', '2022-08-10 15:17:56', 145),
-('DoctrineMigrations\\Version20220810165119', '2022-08-10 16:51:25', 305);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `like`
---
-
-DROP TABLE IF EXISTS `like`;
-CREATE TABLE IF NOT EXISTS `like` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  `love` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_AC6340B3A76ED395` (`user_id`),
-  KEY `IDX_AC6340B34B89032C` (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `like`
---
-
-INSERT INTO `like` (`id`, `user_id`, `post_id`, `love`) VALUES
-(7, 1, 1, 1);
+('DoctrineMigrations\\Version20220810165119', '2022-08-10 16:51:25', 305),
+('DoctrineMigrations\\Version20220812010636', '2022-08-12 01:17:01', 428),
+('DoctrineMigrations\\Version20220812024315', '2022-08-12 02:43:21', 301),
+('DoctrineMigrations\\Version20220812030302', '2022-08-12 03:03:07', 265),
+('DoctrineMigrations\\Version20220812042350', '2022-08-12 04:23:55', 236);
 
 -- --------------------------------------------------------
 
@@ -127,7 +104,14 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
   KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
   KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
   KEY `IDX_75EA56E016BA31DB` (`delivered_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `messenger_messages`
+--
+
+INSERT INTO `messenger_messages` (`id`, `body`, `headers`, `queue_name`, `created_at`, `available_at`, `delivered_at`) VALUES
+(1, 'O:36:\\\"Symfony\\\\Component\\\\Messenger\\\\Envelope\\\":2:{s:44:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0stamps\\\";a:1:{s:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\";a:1:{i:0;O:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\":1:{s:55:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\0busName\\\";s:21:\\\"messenger.bus.default\\\";}}}s:45:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0message\\\";O:51:\\\"Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\\":2:{s:60:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0message\\\";O:39:\\\"Symfony\\\\Bridge\\\\Twig\\\\Mime\\\\TemplatedEmail\\\":4:{i:0;s:30:\\\"reset_password/email.html.twig\\\";i:1;N;i:2;a:1:{s:10:\\\"resetToken\\\";O:58:\\\"SymfonyCasts\\\\Bundle\\\\ResetPassword\\\\Model\\\\ResetPasswordToken\\\":4:{s:65:\\\"\\0SymfonyCasts\\\\Bundle\\\\ResetPassword\\\\Model\\\\ResetPasswordToken\\0token\\\";s:40:\\\"4sIgqENLy1gGeUU6ZH1a7pik5Gfo1EpSs7ZmAsUJ\\\";s:69:\\\"\\0SymfonyCasts\\\\Bundle\\\\ResetPassword\\\\Model\\\\ResetPasswordToken\\0expiresAt\\\";O:17:\\\"DateTimeImmutable\\\":3:{s:4:\\\"date\\\";s:26:\\\"2022-08-11 04:23:57.317412\\\";s:13:\\\"timezone_type\\\";i:3;s:8:\\\"timezone\\\";s:3:\\\"UTC\\\";}s:71:\\\"\\0SymfonyCasts\\\\Bundle\\\\ResetPassword\\\\Model\\\\ResetPasswordToken\\0generatedAt\\\";i:1660188237;s:73:\\\"\\0SymfonyCasts\\\\Bundle\\\\ResetPassword\\\\Model\\\\ResetPasswordToken\\0transInterval\\\";i:1;}}i:3;a:6:{i:0;N;i:1;N;i:2;N;i:3;N;i:4;a:0:{}i:5;a:2:{i:0;O:37:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\\":2:{s:46:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0headers\\\";a:3:{s:4:\\\"from\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:4:\\\"From\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:19:\\\"festivapp@gmail.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:9:\\\"FestivApp\\\";}}}}s:2:\\\"to\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:2:\\\"To\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:16:\\\"Quat94@gmail.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:7:\\\"subject\\\";a:1:{i:0;O:48:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:7:\\\"Subject\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:55:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\0value\\\";s:27:\\\"Your password reset request\\\";}}}s:49:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0lineLength\\\";i:76;}i:1;N;}}}s:61:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0envelope\\\";N;}}', '[]', 'default', '2022-08-11 03:23:57', '2022-08-11 03:23:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,21 +125,19 @@ CREATE TABLE IF NOT EXISTS `post` (
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `likes` bigint(11) DEFAULT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_5A8A6C8DA76ED395` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `post`
 --
 
-INSERT INTO `post` (`id`, `image`, `description`, `user_id`, `likes`) VALUES
-(1, '1.png', 'test', 2, NULL),
-(9, 'circuit1-62eaa00b97f18545374066.png', '32', 1, NULL),
-(10, 'circuit1-62f27b12757cb609833128.png', 'test', 1, NULL),
-(11, '1-62f27b2858657037662599.png', 'test', 1, NULL),
-(12, 'circuit1-62f27b3842b49645914963.png', 'test', 1, NULL);
+INSERT INTO `post` (`id`, `image`, `description`, `user_id`, `likes`, `created_at`, `updated_at`) VALUES
+(14, 'circuit1-62f5bc924d4e9229299279.png', 'Ceci est une deuxième description', 10, 3, '2022-08-12 05:03:07', '2022-08-12 05:03:07');
 
 -- --------------------------------------------------------
 
@@ -173,7 +155,14 @@ CREATE TABLE IF NOT EXISTS `reset_password_request` (
   `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_7CE748AA76ED395` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `reset_password_request`
+--
+
+INSERT INTO `reset_password_request` (`id`, `user_id`, `selector`, `hashed_token`, `requested_at`, `expires_at`) VALUES
+(1, 1, '4sIgqENLy1gGeUU6ZH1a', 'OesEQYcqIGeIUoQfplaU1rE4wlQbRUmcR3cM14qaTJw=', '2022-08-11 03:23:57', '2022-08-11 04:23:57');
 
 -- --------------------------------------------------------
 
@@ -190,24 +179,41 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `username`, `description`, `avatar`) VALUES
-(1, 'Quat94@gmail.com', '[\"ROLE_USER\"]', '$2y$13$612ecbFCBMrkOUBAcdr2kufZMqRyx9HtnYp3NeW590fIRo9SVBEtO', 'quentinlap', 'test de description modifié je voudrai voir si une description bien longue marcherai sur le profile', '1-62f27609ab6d0789626932.png'),
-(2, 'quentin-lapujade@gmail.com', '[\"ROLE_USER\"]', '$2y$13$cfNNWr96v007Cs8J5Es0juEww9/g08zYhDpMMnszd2eCrOGvFtmeK', 'quentinlap3', NULL, NULL),
-(3, 'Quat94300@gmail.com', '[\"ROLE_USER\"]', '$2y$13$iuZh.A1eP90GckoPcjW7E.ELAMBt66oYk8Tr.ylZS7CdHXYv/ncu.', 'steven', NULL, NULL),
-(4, 'Quat94301@gmail.com', '[\"ROLE_USER\"]', '$2y$13$Y1Hy8/kPeGDLpB/dA9tADu2XRDFwxM4NFGYCxhLRmayGyZDuijhzG', 'nico', NULL, 'circuit1-62e83305020a1980635428.png'),
-(5, 'Quat94302@gmail.com', '[\"ROLE_USER\"]', '$2y$13$FHEIAN1dKVhFf9Wcg3WvzuOs6jVUFgekVl769vwM8qpgNjplRE.ti', 'paul', NULL, '1-62e833626125a268945440.png'),
-(6, 'Quat94303@gmail.com', '[\"ROLE_USER\"]', '$2y$13$nAMS6yTKcydBIC0rDFB7SOch58txm51pAqJWNPBp3nNm1pzAx.8Si', 'nicolas', NULL, '1-62e833a8646c7630627030.png'),
-(7, 'Quat94304@gmail.com', '[\"ROLE_USER\"]', '$2y$13$HH0iNcoIpstdUY9jhCzAbuGsEd3Tnc7OmsRYXm8YlPN9nm46Aio6e', 'elie', NULL, '1-62e8351c59215458215360.png'),
-(8, 'Quat94305@gmail.com', '[\"ROLE_USER\"]', '$2y$13$63ZZ8c39qxR0MWS1vkUp1OHX5mTnHioiojIEhqUKIIGBny7f0QSuy', 'clement', NULL, '1-62e835a557e62098510308.png'),
-(9, 'Quat94306@gmail.com', '[\"ROLE_USER\"]', '$2y$13$.eFYuhrbZxeIsuc1O7AbweVVBIE.3KLer98T6s49mcAg6hfZvSBK.', 'rafou', NULL, '1-62e836961d05b694532557.png');
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `username`, `description`, `avatar`, `created_at`, `updated_at`) VALUES
+(1, 'Quat94@gmail.com', '[\"ROLE_USER\"]', '$2y$13$612ecbFCBMrkOUBAcdr2kufZMqRyx9HtnYp3NeW590fIRo9SVBEtO', 'quentinlap', 'test de description modifié je voudrai voir si une description bien longue marcherai sur le profile', NULL, '2022-08-12 05:03:07', '2022-08-12 05:03:07'),
+(10, 'quat94300@gmail.com', '[\"ROLE_USER\"]', '$2y$13$ZYEk3Z0q90f1PAvf1Tfj/e7N3K3LVvUsuJT0lLL7urPCpqoy.BiKC', 'steven', NULL, NULL, '2022-08-12 05:03:07', '2022-08-12 05:03:07');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_post`
+--
+
+DROP TABLE IF EXISTS `user_post`;
+CREATE TABLE IF NOT EXISTS `user_post` (
+  `user_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`post_id`),
+  KEY `IDX_200B2044A76ED395` (`user_id`),
+  KEY `IDX_200B20444B89032C` (`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `user_post`
+--
+
+INSERT INTO `user_post` (`user_id`, `post_id`) VALUES
+(1, 14);
 
 --
 -- Contraintes pour les tables déchargées
@@ -221,13 +227,6 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `FK_9474526CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Contraintes pour la table `like`
---
-ALTER TABLE `like`
-  ADD CONSTRAINT `FK_AC6340B34B89032C` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
-  ADD CONSTRAINT `FK_AC6340B3A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
---
 -- Contraintes pour la table `post`
 --
 ALTER TABLE `post`
@@ -238,6 +237,13 @@ ALTER TABLE `post`
 --
 ALTER TABLE `reset_password_request`
   ADD CONSTRAINT `FK_7CE748AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Contraintes pour la table `user_post`
+--
+ALTER TABLE `user_post`
+  ADD CONSTRAINT `FK_200B20444B89032C` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_200B2044A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

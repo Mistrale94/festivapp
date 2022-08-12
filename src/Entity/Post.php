@@ -11,6 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class Post
 {
     #[ORM\Id]
@@ -34,17 +35,23 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comment;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Like::class, orphanRemoval: true)]
-    private Collection $love;
-
     #[ORM\Column(nullable: true)]
     private ?int $likes = null;
+
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private $created_at;
+
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private $updated_at;
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'likes')]
+    private Collection $likers;
 
     public function __construct()
     {
         $this->comment = new ArrayCollection();
-        $this->love = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->likers = new ArrayCollection();
     }
 
 
@@ -138,37 +145,6 @@ class Post
         return $this;
     }
 
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLove(): Collection
-    {
-        return $this->love;
-    }
-
-    public function addLove(Like $love): self
-    {
-        if (!$this->love->contains($love)) {
-            $this->love->add($love);
-            $love->setPost($this);
-        }
-
-        return $this;
-    }
-    
-
-    public function removeLove(Like $love): self
-    {
-        if ($this->love->removeElement($love)) {
-            // set the owning side to null (unless already changed)
-            if ($love->getPost() === $this) {
-                $love->setPost(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getLikes(): ?int
     {
         return $this->likes;
@@ -213,6 +189,69 @@ class Post
         return $this->id;
         return $this->comment;
         return $this->likers;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(){
+        $this->created_at = new \DateTimeImmutable();
+    }
+    
+    #[ORM\PrePersist]
+    public function setUpdatedAtValue(){
+        $this->updated_at = new \DateTimeImmutable();
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getLikers(): Collection
+    {
+        return $this->likers;
+    }
+
+    public function addLiker(User $liker): self
+    {
+
+        if (!$this->likers->contains($liker)) {
+            $this->likers[] = $liker;
+            $liker->addLike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLiker(User $liker): self
+    {
+        if ($this->likers->contains($liker)) {
+            $this->likers->removeElement($liker);
+            $liker->removeLike($this);
+        }
+
+        return $this;
     }
 
 }

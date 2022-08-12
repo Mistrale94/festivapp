@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post{% endblock %}
+{% block title %}Publication{% endblock %}
 
 {% block body %}
     <section class="postShow">
@@ -8,7 +8,7 @@
             <div class="postHeader">
                 <a href="{{ path('app_user_show', {'id': post.user.id}) }}">
                     {% if post.user.avatar == null %}
-                        <img src="/image/uploads/users/avatar.webp" alt="" />
+                        <img src="/asset/image/avatar.jpg" alt="" />
                     {% else %}
                         <img src="/image/uploads/users/{{post.user.avatar}}" alt="" />
                     {% endif %}
@@ -45,12 +45,22 @@
                 {% else %}
                     <p>{{ post.likes }} personnes ont aimé cette publication</p>
                 {% endif %}
+                
             </div>
             <div class="postCommentContainer">
                 {% for comment in post.comment %}
                     <div class="postComment">
-                        <span>{{ comment.user.username }}</span>
-                        <p>{{ comment.comment }}</p>
+                        <div>
+                            <a href="{{ path('app_user_show', {'id': comment.user.id}) }}">
+                                <span>{{ comment.user.username }}</span>
+                            </a>
+                            <p>{{ comment.comment }}</p>
+                        </div>
+                        {% if app.user %}
+                            {% if app.user.id == comment.user.id %}
+                                {{ include('comment/_delete_form.html.twig') }}
+                            {% endif %}
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

@@ -8,17 +8,25 @@ use App\Repository\PostRepository;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
-use App\Repository\LikeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 #[Route('/')]
 class PostController extends AbstractController
 {
+
+    private $repo;
+
+    public function __construct(PostRepository $repo)
+    {
+        $this->repo = $repo;
+    }
+
     #[Route('/', name: 'app_post_index', methods: ['GET', 'POST'])]
-    public function index(PostRepository $postRepository, CommentRepository $commentRepository, LikeRepository $likeRepository, Request $request): Response
+    public function index(PostRepository $postRepository, CommentRepository $commentRepository, Request $request): Response
     {
         $user = $this->getUser();
         $comment = new Comment();
@@ -34,10 +42,26 @@ class PostController extends AbstractController
 
         return $this->renderForm('post/index.html.twig', [
             'posts' => $postRepository->findAll(),
-            'loves' => $likeRepository->findAll(),
             'comment' => $comment,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/like', name: 'like', methods: ['POST'])]
+    public function like(Request $request, PersistenceManagerRegistry $doctrine): Response
+    {
+        $id = $request->request->all();
+        $post = $this->repo->find(intval($id['id']));
+        $user = $this->getUser();
+        $user->addLike($post);
+        $post->setLikes($post->getLikes() + 1);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($post);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_post_index');
     }
 
     #[Route('/new', name: 'app_post_new', methods: ['GET', 'POST'])]

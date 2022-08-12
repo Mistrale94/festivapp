@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post index{% endblock %}
+{% block title %}FestivApp{% endblock %}
 
 {% block body %}
 
@@ -10,7 +10,7 @@
                 <div class="postHeader">
                     <a href="{{ path('app_user_show', {'id': post.user.id}) }}">
                         {% if post.user.avatar == null %}
-                            <img src="/image/uploads/users/avatar.webp" alt="" />
+                            <img src="/asset/image/avatar.jpg" alt="" />
                         {% else %}
                             <img src="/image/uploads/users/{{post.user.avatar}}" alt="" />
                         {% endif %}
@@ -35,26 +35,41 @@
                     {% if app.user %}
                         <form method="POST" action="{{ path('like') }}">
                             <input type="text" name="id" value="{{ post.id }}" style="display:none;">
-                            <button type="submit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
+                            {% if post.user.likes in (app.user.id) %}
+                                <button type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="red" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </button>
+                            {% else %}
+                                <button type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </button>
+                            {% endif %}
                         </form>
                     {% endif %}
                     {% if post.likes == null %}
                         <p>0 personnes ont aimé cette publication</p>
                     {% else %}
-                        <p>{{ post.likes }} personnes ont aimé cette publication</p>
+                        <p> {{ post.likers|length }} personnes ont aimé cette publication</p>
                     {% endif %}
                 </div>
                 <div class="postCommentContainer">
                     {% for comment in post.comment %}
                         <div class="postComment">
-                            <a href="{{ path('app_user_show', {'id': comment.user.id}) }}">
-                                <span>{{ comment.user.username }}</span>
-                            </a>
-                            <p>{{ comment.comment }}</p>
+                            <div>
+                                <a href="{{ path('app_user_show', {'id': comment.user.id}) }}">
+                                    <span>{{ comment.user.username }}</span>
+                                </a>
+                                <p>{{ comment.comment }}</p>
+                            </div>
+                            {% if app.user %}
+                                {% if app.user.id == comment.user.id %}
+                                    {{ include('comment/_delete_form.html.twig') }}
+                                {% endif %}
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>

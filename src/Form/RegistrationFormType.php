@@ -11,19 +11,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageFile', VichImageType::class, [
-                'label' => 'Image',
-                'required' => true,
-                'data_class' => null,
-                'empty_data' => '',
-            ])
             ->add('email')
             ->add('username')
             ->add('agreeTerms', CheckboxType::class, [

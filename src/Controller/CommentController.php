@@ -96,6 +96,6 @@ class CommentController extends AbstractController
             $commentRepository->remove($comment, true);
         }
 
-        return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
     }
 }

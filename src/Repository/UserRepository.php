@@ -56,6 +56,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
+    public function findByLikes($value): ?User
+    {
+        return $this->createQueryBuilder('l')
+            ->leftJoin('l.likers', 'u')
+            ->leftJoin('u.likes','e')
+            ->addSelect('u','e')
+            ->where('l.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

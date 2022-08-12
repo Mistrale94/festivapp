@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -53,14 +54,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comment;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Like::class, orphanRemoval: true)]
-    private Collection $love;
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private $created_at;
+
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private $updated_at;
+
+    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'likers')]
+    private Collection $likes;
 
     public function __construct()
     {
         $this->post = new ArrayCollection();
         $this->comment = new ArrayCollection();
-        $this->love = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,35 +255,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Like>
-     */
-    public function getLove(): Collection
-    {
-        return $this->love;
-    }
-
-    public function addLove(Like $love): self
-    {
-        if (!$this->love->contains($love)) {
-            $this->love->add($love);
-            $love->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLove(Like $love): self
-    {
-        if ($this->love->removeElement($love)) {
-            // set the owning side to null (unless already changed)
-            if ($love->getUser() === $this) {
-                $love->setUser(null);
-            }
-        }
-
-        return $this;
-    }
     public function __toString()
     {
         return $this->id;
@@ -334,4 +312,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(){
+        $this->created_at = new \DateTimeImmutable();
+    }
+    
+    #[ORM\PrePersist]
+    public function setUpdatedAtValue(){
+        $this->updated_at = new \DateTimeImmutable();
+    }
+    
 }

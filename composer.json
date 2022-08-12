@@ -48,6 +48,7 @@
         "vich/uploader-bundle": "^1.20"
     },
     "config": {
+        "platform-check": false,
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
