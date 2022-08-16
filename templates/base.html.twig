@@ -34,9 +34,9 @@
                                 <a href="{{ path('app_user_show', {'id': app.user.id}) }}">
                                     <p>{{app.user.username}}</p>
                                     {% if app.user.avatar == null %}
-                                        <img src="/asset/image/avatar.jpg" alt="" />
+                                        <img src="/asset/image/avatar.jpg" alt="Avatar" />
                                     {% else %}
-                                        <img src="/image/uploads/users/{{app.user.avatar}}" alt="" />
+                                        <img src="/image/uploads/users/{{app.user.avatar}}" alt="Image de profile" />
                                     {% endif %}
                                 </a>
                             </li>

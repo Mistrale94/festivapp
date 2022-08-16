@@ -8,9 +8,9 @@
             <div class="postHeader">
                 <a href="{{ path('app_user_show', {'id': post.user.id}) }}">
                     {% if post.user.avatar == null %}
-                        <img src="/asset/image/avatar.jpg" alt="" />
+                        <img src="/asset/image/avatar.jpg" alt="Avatar" />
                     {% else %}
-                        <img src="/image/uploads/users/{{post.user.avatar}}" alt="" />
+                        <img src="/image/uploads/users/{{post.user.avatar}}" alt="Image de profile" />
                     {% endif %}
                     <p>{{ post.user.username }}</p>
                 </a>
@@ -27,7 +27,7 @@
                     {% endif %}
                 {% endif %}
             </div>
-            <img src="image/uploads/posts/{{post.image}}">
+            <img src="image/uploads/posts/{{post.image}}" alt="Image de la publication">
             <p class="bio">{{ post.description }}</p>
             <div class="postIconContainer">
                 {% if app.user %}

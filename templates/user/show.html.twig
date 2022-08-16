@@ -7,9 +7,9 @@
     <section class="profile">
         <div class="profileHeader">
             {% if user.avatar == null %}
-                <img src="/asset/image/avatar.jpg" alt="" />
+                <img src="/asset/image/avatar.jpg" alt="Avatar" />
             {% else %}
-                <img src="/image/uploads/users/{{user.avatar}}" alt="" />
+                <img src="/image/uploads/users/{{user.avatar}}" alt="Image de profile" />
             {% endif %}
             <h1>{{ user.username }}</h1>
             <p>{{ user.description }}</p>
@@ -22,7 +22,7 @@
         <div class="profilePost">
             {% for post in user.post %}
                 <a href="{{ path('app_post_show', {'id': post.id}) }}">
-                    <img src="/image/uploads/posts/{{ post.image }}" alt="">
+                    <img src="/image/uploads/posts/{{ post.image }}" alt="Image de la publication">
                 </a>
             {% endfor %}
         </div>
