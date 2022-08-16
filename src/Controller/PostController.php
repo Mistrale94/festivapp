@@ -54,7 +54,22 @@ class PostController extends AbstractController
         $post = $this->repo->find(intval($id['id']));
         $user = $this->getUser();
         $user->addLike($post);
-        $post->setLikes($post->getLikes() + 1);
+
+        $entityManager = $doctrine->getManager();
+        $entityManager->persist($post);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_post_index');
+    }
+
+    #[Route('/unlike', name: 'unlike', methods: ['POST'])]
+    public function unlike(Request $request, PersistenceManagerRegistry $doctrine): Response
+    {
+        $id = $request->request->all();
+        $post = $this->repo->find(intval($id['id']));
+        $user = $this->getUser();
+        $user->removeLike($post);
 
         $entityManager = $doctrine->getManager();
         $entityManager->persist($post);

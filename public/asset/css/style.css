@@ -72,7 +72,7 @@ body {
     align-items: center;
     margin-top: 50px; }
     body section.feed div.postContainer, body section.postShow div.postContainer {
-      width: 80%;
+      width: 95%;
       margin-bottom: 50px;
       background-color: #191A19;
       border-radius: 10px;
@@ -151,6 +151,9 @@ body {
               color: #7d15cc;
               transform: scale(1.2);
               transition: all 300ms ease-out; }
+          body section.feed div.postContainer div.postIconContainer form button.unlike:hover, body section.postShow div.postContainer div.postIconContainer form button.unlike:hover {
+            color: #7d15cc;
+            transition: 0.3s; }
       body section.feed div.postContainer div.postCommentContainer, body section.postShow div.postContainer div.postCommentContainer {
         padding: 0 20px; }
         body section.feed div.postContainer div.postCommentContainer div.postComment, body section.postShow div.postContainer div.postCommentContainer div.postComment {
@@ -357,9 +360,7 @@ body {
       align-items: center; }
       body section.profile div.profilePost {
         justify-content: space-evenly;
-        width: 70%; }
-    body section.feed div.postContainer, body section.postShow div.postContainer {
-      width: 80%; } }
+        width: 70%; } }
   @media (min-width: 992px) {
     body section.feed div.postContainer, body section.postShow div.postContainer {
       width: 70%; }

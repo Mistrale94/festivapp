@@ -35,13 +35,10 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comment;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $likes = null;
-
-    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: 'datetime_immutable')]
     private $created_at;
 
-    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(type: 'datetime_immutable')]
     private $updated_at;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'likes')]
@@ -145,18 +142,6 @@ class Post
         return $this;
     }
 
-    public function getLikes(): ?int
-    {
-        return $this->likes;
-    }
-
-    public function setLikes(?int $likes): self
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, User>
      */
@@ -215,16 +200,6 @@ class Post
         return $this;
     }
 
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(){
-        $this->created_at = new \DateTimeImmutable();
-    }
-    
-    #[ORM\PrePersist]
-    public function setUpdatedAtValue(){
-        $this->updated_at = new \DateTimeImmutable();
-    }
-
     /**
      * @return Collection<int, User>
      */
@@ -252,6 +227,16 @@ class Post
         }
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(){
+        $this->created_at = new \DateTimeImmutable();
+    }
+
+    #[ORM\PrePersist]
+    public function setUpdatedAtValue(){
+        $this->updated_at = new \DateTimeImmutable();
     }
 
 }

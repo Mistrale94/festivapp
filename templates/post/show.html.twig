@@ -40,12 +40,11 @@
                         </button>
                     </form>
                 {% endif %}
-                {% if post.likes == null %}
+                {% if post.likers == null %}
                     <p>0 personnes ont aimé cette publication</p>
                 {% else %}
-                    <p>{{ post.likes }} personnes ont aimé cette publication</p>
+                    <p> {{ post.likers|length }} personnes ont aimé cette publication</p>
                 {% endif %}
-                
             </div>
             <div class="postCommentContainer">
                 {% for comment in post.comment %}

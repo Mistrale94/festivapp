@@ -16,7 +16,7 @@ class PostType extends AbstractType
         $builder
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image',
-                'required' => true,
+                'required' => false,
                 'data_class' => null,
                 'empty_data' => '',
             ])

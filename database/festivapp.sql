@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 12 août 2022 à 07:44
+-- Généré le : mar. 16 août 2022 à 14:24
 -- Version du serveur : 5.7.36
--- Version de PHP : 8.0.13
+-- Version de PHP : 8.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `updated_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_9474526C4B89032C` (`post_id`),
   KEY `IDX_9474526CA76ED395` (`user_id`)
@@ -83,7 +83,10 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20220812010636', '2022-08-12 01:17:01', 428),
 ('DoctrineMigrations\\Version20220812024315', '2022-08-12 02:43:21', 301),
 ('DoctrineMigrations\\Version20220812030302', '2022-08-12 03:03:07', 265),
-('DoctrineMigrations\\Version20220812042350', '2022-08-12 04:23:55', 236);
+('DoctrineMigrations\\Version20220812042350', '2022-08-12 04:23:55', 236),
+('DoctrineMigrations\\Version20220816124046', '2022-08-16 12:40:58', 116),
+('DoctrineMigrations\\Version20220816124743', '2022-08-16 12:47:49', 125),
+('DoctrineMigrations\\Version20220816125830', '2022-08-16 12:58:35', 181);
 
 -- --------------------------------------------------------
 
@@ -125,19 +128,19 @@ CREATE TABLE IF NOT EXISTS `post` (
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `likes` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `updated_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_5A8A6C8DA76ED395` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `post`
 --
 
-INSERT INTO `post` (`id`, `image`, `description`, `user_id`, `likes`, `created_at`, `updated_at`) VALUES
-(14, 'circuit1-62f5bc924d4e9229299279.png', 'Ceci est une deuxième description', 10, 3, '2022-08-12 05:03:07', '2022-08-12 05:03:07');
+INSERT INTO `post` (`id`, `image`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
+(14, 'circuit1-62f5bc924d4e9229299279.png', 'Ceci est une deuxième description', 10, '2022-08-12 05:03:07', '2022-08-12 05:03:07'),
+(15, 'festival-decibulles-2017-laurent-khram-longvixay-1-1600x900-62fb90b17c5da987428691.jpg', 'C\'était incroyable.', 1, '2022-08-16 12:42:25', '2022-08-16 12:42:25');
 
 -- --------------------------------------------------------
 
@@ -179,8 +182,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '(DC2Type:datetime_immutable)',
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `updated_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -207,13 +210,6 @@ CREATE TABLE IF NOT EXISTS `user_post` (
   KEY `IDX_200B2044A76ED395` (`user_id`),
   KEY `IDX_200B20444B89032C` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `user_post`
---
-
-INSERT INTO `user_post` (`user_id`, `post_id`) VALUES
-(1, 14);
 
 --
 -- Contraintes pour les tables déchargées
